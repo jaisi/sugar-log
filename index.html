@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>My Sugar Log</title>
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="./lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+<body ng-app="SugarLogApp">
+
+    <div ng-include="'partials/navbar.html'"></div>
+
+    <div ng-view></div>
+
+	<!-- third Party JS -->
+	<script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/lib/node_modules/angular/angular.min.js"></script>
+  <script type="text/javascript" src="/lib/node_modules/angular-route/angular-route.min.js"></script>
+  <script type="text/javascript" src="/lib/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+  <script type="text/javascript" src="/lib/node_modules/firebase/firebase.js"></script>
+
+  <!-- FusionCharts library-->
+  <script type="text/javascript" src="/lib/node_modules/fusioncharts/fusioncharts.js"></script>
+  <script type="text/javascript" src="/lib/node_modules/fusioncharts/fusioncharts.charts.js"></script>
+  <!-- Angular plugin -->
+  <script type="text/javascript" src="/lib/node_modules/angular-fusioncharts/dist/angular-fusioncharts.min.js"></script>
+
+  <!--charts.js-->
+  <script src="/lib/node_modules/chart.js/dist/Chart.min.js"></script>
+  <script src="/lib/node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+
+  <!--ngPrint-->
+  <script type="text/javascript" src="/lib/node_modules/ngPrint/ngPrint.js"></script>
+
+  <!--html to pdf-->
+  <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+  <script src="/lib/node_modules/jsPDF/dist/jspdf.debug.js"></script>
+   <script src="/lib/node_modules/angular-save-html-to-pdf/dist/saveHtmlToPdf.min.js"></script>
+
+
+
+  <!-- App Specific JS -->
+  <script type="text/javascript" src="/app/app.js"></script>
+  <script type="text/javascript" src="/app/values/fbcreds.js"></script>
+  <!--Factories-->
+  <script type="text/javascript" src="./app/factories/authFactory.js"></script>
+  <script type="text/javascript" src="/app/factories/dataFactory.js"></script>
+
+  <!--Controllers-->
+  <script type="text/javascript" src="/app/controllers/navbarCtrl.js"></script>
+  <script type="text/javascript" src="./app/controllers/authCtrl.js"></script>
+  <script type="text/javascript" src="/app/controllers/addNumberCtrl.js"></script>
+  <script type="text/javascript" src="app/controllers/numberListCtrl.js"></script>
+  <script type="text/javascript" src="app/controllers/editNumberCtrl.js"></script>
+  <script type="text/javascript" src="/app/controllers/datePickerPopUpCtrl.js"></script>
+ <script type="text/javascript" src="/app/controllers/graphCtrl.js"></script>
+</body>
+</html>

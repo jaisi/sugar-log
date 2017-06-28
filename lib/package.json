@@ -1,0 +1,29 @@
+{
+  "name": "sugarlog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-chart.js": "^1.1.1",
+    "angular-route": "^1.6.4",
+    "bootstrap": "^3.3.7",
+    "chart.js": "^2.6.0",
+    "firebase": "^4.1.1",
+    "jquery": "^3.2.1",
+    "matchdep": "^1.0.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-nodeunit": "^1.0.0",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^2.0.0"
+  }
+}

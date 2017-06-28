@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:500');
+
+.quote{
+  font-family: 'Roboto', sans-serif;
+  color: 'gray';
+}
+
+body {
+  background-color: white;
+
+}
+//center navbar
+.nav.navbar-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav {
+        float: none;
+    }
+}
+//
+
+
+h1, h2 {
+  text-align: center;
+}
+
+.align-right{
+  text-align: center;
+}
+
+.main-container {
+  border: 2px dashed red;
+}
+
+.container--auth {
+  background-color: white;
+  padding: 20px;
+  margin-top: 40px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
+
+.search-bar-spacing {
+  margin-bottom: 20px;
+}
+
+.title-bar {
+  font-weight: bold; 
+}
+
+.form--demo {
+  background-color: white;
+  border: 2px solid #ccc;
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+  }
+  .partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+  }
+
+
+  .uib-datepicker-popup.dropdown-menu {
+  
+}
+
+.uib-button-bar {
+  padding: 10px 9px 2px;
+}
+
+.uib-datepicker .uib-title {
+  width: 100%;
+}
+
+.uib-day button, .uib-month button, .uib-year button {
+  min-width: 100%;
+}
+
+.uib-left, .uib-right {
+  width: 100%
+}
+
+.uib-position-measure {
+  display: block !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+.uib-position-scrollbar-measure {
+  position: absolute !important;
+  top: -9999px !important;
+  width: 50px !important;
+  height: 50px !important;
+  overflow: scroll !important;
+}
+
+.uib-position-body-scrollbar-measure {
+  overflow: scroll !important;
+}
+
+//ngPrint
+
+@media screen {
+    #printSection {
+        display: none;
+    }
+}
+
+@media print {
+    body * {
+        display:none;
+    }
+
+    #printSection, #printSection * {
+        display: inline;
+    }
+
+    #printSection {
+        position:absolute;
+        left:0;
+        top:0;
+    }
+}
+
+
