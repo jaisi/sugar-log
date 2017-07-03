@@ -135,7 +135,20 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
     };
    
 
+    $scope.filter1 = function(){
+      return function(item){
+        console.log("i am here");
+      };
+    };
+
+    $scope.filter2 = function(){
+      return function(item){
+        console.log("i am now here");
+      };
+    };
     
+
+
 
     //awesome filter function, will break up into individual functions if time permits
   	$scope.myFilter = function(dt1, dt2, dt, prop, val){

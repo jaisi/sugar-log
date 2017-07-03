@@ -18,9 +18,9 @@ app.controller("GraphCtrl", function ($scope, DataFactory) {
   	    							[$scope.breakfastAverage, $scope.lunchAverage, $scope.dinnerAverage, $scope.bedtimeAverage, $scope.otherAverage]
   	 					 		  ];
             } else {
-                        console.log("$scope.showline", $scope.showline);
+                        console.log("$scope.showline", $scope.showline,$scope.filtered);
                         $scope.labels = [];
-                        $scope.series = ['Breakfast', 'Lunch', 'Dinner', 'Bedtime', 'Other'];
+                        //$scope.series = ['Breakfast', 'Lunch', 'Dinner', 'Bedtime', 'Other'];
                         $scope.data = [];
                         $scope.breakfast = [];
                         $scope.lunch = [];
@@ -42,15 +42,38 @@ app.controller("GraphCtrl", function ($scope, DataFactory) {
                           
                           
                         }
-                        $scope.labels.sort(function(a,b){
+                        console.log("$scope.labels",$scope.labels);
+                       /*$scope.labels.sort(function(a,b){
                           return new Date(a) - new Date(b);
-                        });
-                        $scope.data.push($scope.breakfast);
-                        $scope.data.push($scope.lunch);
-                        $scope.data.push($scope.dinner);
-                        $scope.data.push($scope.bedtime);
-                        $scope.data.push($scope.other);
+                        });*/
+                       if(meal === "breakfast"){
+                          $scope.series = ['Breakfast'];
+                          $scope.data.push($scope.breakfast);
+                       }
+                        if(meal === "lunch"){
+                          $scope.series = ['Lunch'];
+                          $scope.data.push($scope.lunch);
+                        }
+                        if(meal === "dinner"){
+                          $scope.series = ['Dinner'];
+                          $scope.data.push($scope.dinner);
+                        }
+                        if(meal === "bedtime"){
+                          $scope.series = ['Bedtime'];
+                          $scope.data.push($scope.bedtime);
+                        }
+                        if(meal === "other"){
+                          $scope.series = ['Other'];
+                          $scope.data.push($scope.other);
+                        }
+                        if (meal === "all"){
+                          $scope.series = ['Breakfast', 'Lunch', 'Dinner', 'Bedtime', 'Other'];
+                          $scope.data.push($scope.breakfast,$scope.lunch,$scope.dinner,$scope.bedtime,$scope.other);
+                        }
                         console.log("$scope.data",$scope.data);
+                       /* $scope.labels.sort(function(a,b){
+                          return new Date(a) - new Date(b);
+                        });*/
                         
                         $scope.onClick = function (points, evt) {
                           console.log(points, evt);
@@ -71,92 +94,69 @@ app.controller("GraphCtrl", function ($scope, DataFactory) {
                   }
 		    	});
 	    	};
- 
-	
-   $scope.myfilter = function(numbers,dt,meal){
-    console.log("numbers,dt,meal",numbers,dt,meal);
-    //numbers.mydate = new Date(numbers.mydate); 
-        var today = new Date() ;
+  
+    $scope.myfilter = function(numbers,dt,meal){
+
+      //numbers is an array of objects
+      console.log("numbers",numbers);
+      var today = new Date() ;
         var test = new Date();
         var thirty = new Date(test.setDate(test.getDate() - 30));
         var sixty = new Date(test.setDate(test.getDate() - 60));
         var ninety = new Date(test.setDate(test.getDate() - 90));
-        $scope.filtered = [];
-        for (let x in numbers){
-          numbers[x].mydate = new Date(numbers[x].mydate); 
-          //console.log("dt,meal",dt,meal);
-          if(dt === "all"){
-            if(meal === "all") {
-              $scope.filtered = numbers;
-              //console.log("i am here");
-            }
-            if(meal === "breakfast"){
-                $scope.filtered.push(numbers[x].breakfast,numbers[x].mydate); 
-            } else if(meal === "lunch"){
-                $scope.filtered.push(numbers[x].lunch,numbers[x].mydate);
-            } else if (meal==="dinner"){
-                $scope.filtered.push(numbers[x].dinner,numbers[x].mydate);
-            }else if (meal==="bedtime"){
-                $scope.filtered.push(numbers[x].bedtime,numbers[x].mydate);
-            }else if(meal ==="other"){
-                $scope.filtered.push(numbers[x].other,numbers[x].mydate);
-            }
-          }else if(dt == 30 && numbers[x].mydate > thirty){
-            if(meal === "all"){
-              $scope.filtered.push(numbers[x]);
-            }else if (meal === "breakfast"){
-              $scope.filtered.push(numbers[x].breakfast,numbers[x].mydate);
-            }else if(meal === "lunch"){
-              $scope.filtered.push(numbers[x].lunch,numbers[x].mydate);
-            }else if(meal === "dinner"){
-              $scope.filtered.push(numbers[x].dinner,numbers[x].mydate);
-            }else if(meal === "bedtime"){
-              $scope.filtered.push(numbers[x].bedtime,numbers[x].mydate);
-            }else if(meal === "other"){
-              $scope.filtered.push(numbers[x].other,numbers[x].mydate);
-            }
-
-          }else if(dt == 60 && numbers[x].mydate > sixty){
-            if(meal === "all"){
-              $scope.filtered.push(numbers[x]);
-            }else if (meal === "breakfast"){
-              $scope.filtered.push(numbers[x].breakfast,numbers[x].mydate);
-            }else if(meal === "lunch"){
-              $scope.filtered.push(numbers[x].lunch,numbers[x].mydate);
-            }else if(meal === "dinner"){
-              $scope.filtered.push(numbers[x].dinner,numbers[x].mydate);
-            }else if(meal === "bedtime"){
-              $scope.filtered.push(numbers[x].bedtime,numbers[x].mydate);
-            }else if(meal === "other"){
-              $scope.filtered.push(numbers[x].other,numbers[x].mydate);
-            }
-
-          }else if(dt == 90 && numbers[x].mydate > ninety){
-            if(meal === "all"){
-              $scope.filtered.push(numbers[x]);
-            }else if (meal === "breakfast"){
-              $scope.filtered.push(numbers[x].breakfast,numbers[x].mydate);
-            }else if(meal === "lunch"){
-              $scope.filtered.push(numbers[x].lunch,numbers[x].mydate);
-            }else if(meal === "dinner"){
-              $scope.filtered.push(numbers[x].dinner,numbers[x].mydate);
-            }else if(meal === "bedtime"){
-              $scope.filtered.push(numbers[x].bedtime,numbers[x].mydate);
-            }else if(meal === "other"){
-              $scope.filtered.push(numbers[x].other,numbers[x].mydate);
-            }
-
-          }
+      $scope.filtered = [];
+      $scope.newObj = {
+            mydate:"",
+            breakfast:"",
+            lunch:"",
+            dinner:"",
+            bedtime:"",
+            other:""
+      };
+      for(let x in numbers){
+        numbers[x].mydate = new Date(numbers[x].mydate); 
+        $scope.newObj = {
+            mydate:numbers[x].mydate,
+            breakfast:numbers[x].breakfast,
+            lunch:numbers[x].lunch,
+            dinner:numbers[x].dinner,
+            bedtime:numbers[x].bedtime,
+            other:numbers[x].other
+        };
+        console.log("numbers[x].breakfast",numbers[x].breakfast, "newObj", $scope.newObj);
+        if(dt === "all")
+          $scope.filtered.push($scope.newObj);
+        else if(dt == 30 && numbers[x].mydate > thirty){
+          console.log("thirty");
+          $scope.filtered.push($scope.newObj);
+        }else if(dt == 60 && numbers[x].mydate > sixty){
+          $scope.filtered.push($scope.newObj);
+        }else if(dt == 90 && numbers[x].mydate > ninety){
+          $scope.filtered.push($scope.newObj);
         }
-        console.log("$scope.filtered",$scope.filtered);
-        return $scope.filtered;
+      }
+      console.log("$scope.filtered",$scope.filtered);
+      return $scope.filtered;
 
+    };
+	
 
-   };
+   var getAvg = function(num){
+        var sum = num.reduce(function(acc, val) {
+            return acc + val;
+      }, 0);
+        var avg = sum/num.length;
+        avg = avg.toFixed(0);
+        //console.log("num sum",num,sum,avg);
+        return avg;
+    
+    };
 
-   //function to calculate averages and A1c
+    //function to calculate averages and A1c
     $scope.getAverages = function(numbers){
-      var showA1c = !showA1c;
+      //console.log("numbers in getAverages", numbers);
+      $scope.showA1c = true;
+      //console.log("showA1c", $scope.showA1c);
       $scope.breakfastAverage = 0;
       $scope.lunchAverage = 0;
       $scope.dinnerAverage = 0;
@@ -164,65 +164,38 @@ app.controller("GraphCtrl", function ($scope, DataFactory) {
       $scope.otherAverage = 0;
       $scope.average = 0;
       $scope.A1c = 0;
-      
-      //console.log("numbers.length", numbers.length);
-      let mybreakfast = [], mylunch =[], mydinner = [], mybedtime = [], myother = [], 
-
-      length = numbers.length,
-          breakfastLength = numbers.length,
-          lunchLength = numbers.length,
-          dinnerLength = numbers.length,
-          bedtimeLength = numbers.length,
-          othersLength = numbers.length;
-      //console.log("length before for", length);
+      let breakfast = [], lunch = [], dinner = [], bedtime = [], other = [], average = [];
       for(let x in numbers){
-        mybreakfast.push(numbers[x].breakfast);
-        //console.log("numbers[x].breakfast", numbers[x].breakfast);
-         //console.log("numbers[x].other", numbers[x].other);
-         if (numbers[x].breakfast === ""){
-           breakfastLength--;
-         }
-         else {
-            $scope.breakfastAverage += parseInt((numbers[x].breakfast),10);
-          }
-          if (numbers[x].lunch === ""){
-           lunchLength--;
-         }
-         else {
-            $scope.lunchAverage += parseInt((numbers[x].lunch),10);
-          }
-          if (numbers[x].dinner === ""){
-           dinnerLength--;
-         }
-         else {
-            $scope.dinnerAverage += parseInt((numbers[x].dinner),10);
-          }
-          if (numbers[x].bedtime === ""){
-           bedtimeLength--;
-         }
-         else {
-            $scope.bedtimeAverage += parseInt((numbers[x].bedtime),10);
-          }
-         if (numbers[x].other === ""){
-           othersLength--;
-         }
-         else {
-            $scope.otherAverage += parseInt((numbers[x].other),10);
-          }
+        if (numbers[x].breakfast !== ""){
+          breakfast.push(parseInt(numbers[x].breakfast,10));
+        }
+        if (numbers[x].lunch !== ""){
+          lunch.push(parseInt(numbers[x].lunch,10));
+        }
+        if(numbers[x].dinner !== ""){
+          dinner.push(parseInt(numbers[x].dinner,10));
+        }
+        if (numbers[x].bedtime !== ""){
+         bedtime.push(parseInt(numbers[x].bedtime,10));
+        }
+        if (numbers[x].other !== ""){
+          other.push(parseInt(numbers[x].other,10));
+        }
         
       }
-      console.log("length", mybreakfast.length, breakfastLength);
-      //console.log("length after for", length);
-      //console.log("others length after for", othersLength, $scope.otherAverage);
-      $scope.breakfastAverage = parseInt($scope.breakfastAverage/breakfastLength,10);
-      $scope.lunchAverage = parseInt($scope.lunchAverage/lunchLength,10);
-      $scope.dinnerAverage = parseInt($scope.dinnerAverage/dinnerLength,10);
-      $scope.bedtimeAverage = parseInt($scope.bedtimeAverage/bedtimeLength,10);
-      $scope.otherAverage = parseInt($scope.otherAverage/othersLength,10);
-      $scope.average = parseInt(parseInt($scope.breakfastAverage) + parseInt($scope.lunchAverage)+ parseInt($scope.dinnerAverage)+ parseInt($scope.bedtimeAverage) + parseInt($scope.otherAverage))/5;
-      $scope.A1c = (46.7 + $scope.average) / 28.7;
-      $scope.A1c = $scope.A1c.toFixed(2);          
+      $scope.breakfastAverage = !isNaN(getAvg(breakfast))?getAvg(breakfast):null;
+      $scope.lunchAverage = !isNaN(getAvg(lunch))?getAvg(lunch):null;
+      $scope.dinnerAverage = !isNaN(getAvg(dinner))?getAvg(dinner):null;
+      $scope.bedtimeAverage = !isNaN(getAvg(bedtime))?getAvg(bedtime):null;
+      $scope.otherAverage = !isNaN(getAvg(other))?getAvg(other):null;
+      average.push(parseInt($scope.breakfastAverage),parseInt($scope.lunchAverage),parseInt($scope.dinnerAverage),parseInt($scope.bedtimeAverage),parseInt($scope.otherAverage));
+      //console.log("average", average,$scope.breakfastAverage );
+      $scope.average = !isNaN(getAvg(average))?getAvg(average):null;
+      $scope.A1c = (46.7 + parseInt($scope.average)) / 28.7;
+      $scope.A1c = $scope.A1c.toFixed(2);   
+      $scope.A1c = !isNaN($scope.A1c)?$scope.A1c:null;       
     };
+   
 
 
   //forgot why i am doing this

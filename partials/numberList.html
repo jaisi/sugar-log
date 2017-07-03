@@ -112,6 +112,7 @@
           </tr>
         </thead>
         <tbody>
+          <!--<tr ng-repeat="bg in (aj = (numbers | filter:filter1(select1) | filter:filter2(select2)|orderBy:sortType:!sortReverse))">-->
           <tr ng-repeat="bg in ($parent.aj = (numbers | filter:myFilter(dt1, dt2, select1, select2, select3) | orderBy:sortType:!sortReverse))">
             <td><a ng-href="#!/{{bg.id}}/edit">{{ bg.mydate | date:shortDate }}</a></td>
             <td>{{ bg.breakfast }}</td>
