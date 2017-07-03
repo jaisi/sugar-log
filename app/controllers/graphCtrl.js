@@ -153,6 +153,7 @@ app.controller("GraphCtrl", function ($scope, DataFactory) {
 
 
    };
+
    //function to calculate averages and A1c
     $scope.getAverages = function(numbers){
       var showA1c = !showA1c;
@@ -223,7 +224,11 @@ app.controller("GraphCtrl", function ($scope, DataFactory) {
       $scope.A1c = $scope.A1c.toFixed(2);          
     };
 
+
+  //forgot why i am doing this
 	$scope.getNumberList("all","all"); 
+
+  //function to choose between showing line or bar graph
   $scope.dothis = function(value1,value2,value3){
     console.log("within dothis function", value3);
     $scope.showline = false;

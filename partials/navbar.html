@@ -1,33 +1,42 @@
-<nav ng-controller="NavCtrl" class="navbar navbar-default">
-  <div class="container-fluid">
+<nav ng-controller="NavCtrl" class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-        aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
+
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#!/">My Sugar Log</a>
+      <a class="navbar-brand" href="#!/">SUGAR SHIELD<!--<img class="logo_img" src="/images/motherrr.png">--></a>
     </div>
-
-     
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a ng-show="isLoggedIn" ng-href="#!/">Enter a #</a></li>
-        <li><a ng-show="isLoggedIn" ng-href="#!/all">Show Records</a></li>
-        <li><a ng-show="isLoggedIn" ng-href="#!/graphs">Show Graphs</a></li>
-        <!--<li><a ng-href="#!/login" ng-show="!isLoggedIn">Login</a></li>-->
-        <li><a ng-show="isLoggedIn" ng-href="#!/logout">Logout</a></li>
-
-      </ul>
-      <ul class="nav navbar-nav navbar-center">
-        <li class="quote" ng-show="!isLoggedIn">{{quote}}</li>
-      </ul>
+    <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li ng-show="isLoggedIn">Hello {{name}}! Today is {{ today | date }}.</li>
+        <li><a ng-show="isLoggedIn" ng-href="#!/">ENTER A #</a></li>
+        <li><a ng-show="isLoggedIn" ng-href="#!/all">RECORDS</a></li>
+        <li><a ng-show="isLoggedIn" ng-href="#!/graphs">GRAPHS</a></li>
+        <li><a ng-show="isLoggedIn" ng-href="#!/logout">LOGOUT</a></li>
+        <li><a ng-show="isLoggedIn" ng-href="" ng-click="toggle()">COLOR</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
+    <!--<nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#!/">My Sugar Log</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a ng-show="isLoggedIn" ng-href="#!/">Enter a #</a></li>
+          <li><a ng-show="isLoggedIn" ng-href="#!/all">Show Records</a></li>
+          <li><a ng-show="isLoggedIn" ng-href="#!/graphs">Show Graphs</a></li>
+          <li><a ng-show="isLoggedIn" ng-href="#!/logout">Logout</a></li>
+          <li class="quote" ng-show="!isLoggedIn">{{quote}}</li>
+          <li ng-show="isLoggedIn">Hello {{name}}! Today is {{ today | date }}.</li>
+        </ul>
+      </div>
+    </nav>-->
+
+     
+
+    

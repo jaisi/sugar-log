@@ -9,13 +9,16 @@
 
 
   <link rel="stylesheet" type="text/css" href="css/main.css">
+   
+    
 </head>
 
-<body ng-app="SugarLogApp">
-
+<body ng-class="{'dark':!makeDark, '':makeDark}" ng-app="SugarLogApp">
     <div ng-include="'partials/navbar.html'"></div>
 
-    <div ng-view></div>
+    <div class="myheight" ng-view></div>
+
+    <div class="myfooter" ng-include="'partials/footer.html'"></div>
 
 	<!-- third Party JS -->
 	<script type="text/javascript" src="/lib/node_modules/jquery/dist/jquery.min.js"></script>
@@ -43,6 +46,9 @@
   <script src="/lib/node_modules/jsPDF/dist/jspdf.debug.js"></script>
    <script src="/lib/node_modules/angular-save-html-to-pdf/dist/saveHtmlToPdf.min.js"></script>
 
+   <!--angular-bootstrap-confirm-->
+   <script src="/lib/node_modules/angular-bootstrap-confirm/dist/angular-bootstrap-confirm.js"></script>
+
 
 
   <!-- App Specific JS -->
@@ -54,6 +60,7 @@
 
   <!--Controllers-->
   <script type="text/javascript" src="/app/controllers/navbarCtrl.js"></script>
+  <script type="text/javascript" src="/app/controllers/footerCtrl.js"></script>
   <script type="text/javascript" src="./app/controllers/authCtrl.js"></script>
   <script type="text/javascript" src="/app/controllers/addNumberCtrl.js"></script>
   <script type="text/javascript" src="app/controllers/numberListCtrl.js"></script>

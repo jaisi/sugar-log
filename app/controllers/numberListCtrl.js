@@ -1,7 +1,16 @@
 "use strict";
 
-app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $location, $timeout){
+app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $location, $timeout, $uibModal,$document){
   let user = AuthFactory.getUser();
+  $scope.aj = [];
+  /*$scope.hoverIn = function(){
+        this.hoverEdit = true;
+    };
+
+    $scope.hoverOut = function(){
+        this.hoverEdit = false;
+    };*/
+
 	$scope.getNumberList = function (user) {
 	    // get the list
 	    DataFactory.getNumbers()
@@ -23,6 +32,49 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
 
   	};
 
+    $scope.open = function (event,recordId) {
+        var parentElem = $(event.target).parent() ;
+        var modalInstance = $uibModal.open({
+          animation: true,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'modal.html',
+          controller: 'ModalInstanceCtrl',
+          size: 'sm',
+          appendTo: parentElem,
+          resolve: {
+            record: function () {
+              return recordId;
+            }
+          }
+        });
+        modalInstance.result.then(function (selectedItem) {
+          $scope.getNumberList();
+          $timeout();
+          //$ctrl.selected = selectedItem;
+        }, function () {
+          console.log('modal-component dismissed at: ' + new Date());
+        });
+  };
+  
+
+    $scope.deleteModal = function (recordId){
+        $scope.recordId = recordId;
+        console.log("i am within deleteModal", recordId);
+         $uibModal.open({
+            templateUrl: 'modal.html',
+            controller:'NumberListCtrl',
+            resolve: {
+              record: function () {
+                return recordId;
+              }
+            }
+          });
+    };
+    
+
+  
+
     $scope.sortType     = 'mydate'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
     $scope.show = false;
@@ -32,15 +84,17 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
             return acc + val;
       }, 0);
         var avg = sum/num.length;
-        avg = avg.toFixed(2);
-        console.log("num sum",num,sum,avg);
+        avg = avg.toFixed(0);
+        //console.log("num sum",num,sum,avg);
         return avg;
     
     };
 
     //function to calculate averages and A1c
     $scope.getAverages = function(numbers){
-      var showA1c = !showA1c;
+      //console.log("numbers in getAverages", numbers);
+      $scope.showA1c = true;
+      //console.log("showA1c", $scope.showA1c);
       $scope.breakfastAverage = 0;
       $scope.lunchAverage = 0;
       $scope.dinnerAverage = 0;
@@ -73,91 +127,23 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
       $scope.bedtimeAverage = !isNaN(getAvg(bedtime))?getAvg(bedtime):null;
       $scope.otherAverage = !isNaN(getAvg(other))?getAvg(other):null;
       average.push(parseInt($scope.breakfastAverage),parseInt($scope.lunchAverage),parseInt($scope.dinnerAverage),parseInt($scope.bedtimeAverage),parseInt($scope.otherAverage));
-      console.log("average", average,$scope.breakfastAverage );
+      //console.log("average", average,$scope.breakfastAverage );
       $scope.average = !isNaN(getAvg(average))?getAvg(average):null;
       $scope.A1c = (46.7 + parseInt($scope.average)) / 28.7;
       $scope.A1c = $scope.A1c.toFixed(2);   
       $scope.A1c = !isNaN($scope.A1c)?$scope.A1c:null;       
     };
-   /*
-   //function to calculate averages and A1c
-  	$scope.getAverages = function(numbers){
-      var showA1c = !showA1c;
-      $scope.breakfastAverage = 0;
-      $scope.lunchAverage = 0;
-      $scope.dinnerAverage = 0;
-      $scope.bedtimeAverage = 0;
-      $scope.otherAverage = 0;
-      $scope.average = 0;
-      $scope.A1c = 0;
-      
-      var sum = [0, 1, 2, 3].reduce(function(acc, val) {
-            return acc + val;
-      }, 0);
-      // sum is 6
-      console.log("sum", sum);
-  		//console.log("numbers.length", numbers.length);
-  		let length = numbers.length,
-          breakfastLength = numbers.length,
-          lunchLength = numbers.length,
-          dinnerLength = numbers.length,
-          bedtimeLength = numbers.length,
-          othersLength = numbers.length;
-      //console.log("length before for", length);
-  		for(let x in numbers){
-	  		//console.log("numbers[x].breakfast", numbers[x].breakfast);
-         //console.log("numbers[x].other", numbers[x].other);
-         if (numbers[x].breakfast === ""){
-           breakfastLength--;
-         }
-         else {
-            $scope.breakfastAverage += parseInt((numbers[x].breakfast),10);
-          }
-          if (numbers[x].lunch === ""){
-           lunchLength--;
-         }
-         else {
-            $scope.lunchAverage += parseInt((numbers[x].lunch),10);
-          }
-          if (numbers[x].dinner === ""){
-           dinnerLength--;
-         }
-         else {
-            $scope.dinnerAverage += parseInt((numbers[x].dinner),10);
-          }
-          if (numbers[x].bedtime === ""){
-           bedtimeLength--;
-         }
-         else {
-            $scope.bedtimeAverage += parseInt((numbers[x].bedtime),10);
-          }
-         if (numbers[x].other === ""){
-           othersLength--;
-         }
-         else {
-            $scope.otherAverage += parseInt((numbers[x].other),10);
-          }
-        
-	  	}
-      //console.log("length after for", length);
-      //console.log("others length after for", othersLength, $scope.otherAverage);
-	  	$scope.breakfastAverage = parseInt($scope.breakfastAverage/breakfastLength,10);
-	  	$scope.lunchAverage = parseInt($scope.lunchAverage/lunchLength,10);
-	  	$scope.dinnerAverage = parseInt($scope.dinnerAverage/dinnerLength,10);
-	  	$scope.bedtimeAverage = parseInt($scope.bedtimeAverage/bedtimeLength,10);
-	  	$scope.otherAverage = parseInt($scope.otherAverage/othersLength,10);
-	  	$scope.average = parseInt(parseInt($scope.breakfastAverage) + parseInt($scope.lunchAverage)+ parseInt($scope.dinnerAverage)+ parseInt($scope.bedtimeAverage) + parseInt($scope.otherAverage))/5;
-	  	$scope.A1c = (46.7 + $scope.average) / 28.7;
-	  	$scope.A1c = $scope.A1c.toFixed(2);          
-  	};
-    */
-    //filter function
+   
+
+    
+
+    //awesome filter function, will break up into individual functions if time permits
   	$scope.myFilter = function(dt1, dt2, dt, prop, val){
-  		console.log("within greaterThan function", $scope.aj);
-  		console.log("dt and prop and val are", dt1, dt2, dt, prop, val);
+  		//console.log("within greaterThan function", $scope.aj);
+  		//console.log("dt and prop and val are", dt1, dt2, dt, prop, val);
   		return function(item){
-        //console.log("aj within myFilter function", $scope.aj);
-  			//console.log("item",item);
+        console.log("aj within myFilter function", $scope.aj);
+        $scope.filtered = [];
         $scope.mydt1 = dt1;
         $scope.mydt2 = dt2;
         $scope.mydt = dt;
@@ -170,18 +156,14 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
         var thirty = new Date(test.setDate(test.getDate() - 30));
         var sixty = new Date(test.setDate(test.getDate() - 60));
         var ninety = new Date(test.setDate(test.getDate() - 90));
-        //console.log("today 30 60 90", today, thirty, sixty, ninety);
-        /*if(dt==30){
-          console.log("dt is 30", typeof(item.mydate));
-          return (item.mydate > thirty) ;
-        }*/
+        
 
         //custom date range starts
         if (dt1 !== undefined && dt2 !== undefined){
           $scope.show=false;
           dt1 = new Date(dt1);
           dt2 = new Date(dt2);
-          console.log("dt1 and dt2 are set", dt1, dt2);
+          //console.log("dt1 and dt2 are set", dt1, dt2);
           return (item.mydate >= dt1 && item.mydate <= dt2);
         }
         //custom date range ends
@@ -189,10 +171,10 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
 
   			if(dt === "all" && prop === "all" && val === "all"){
             $scope.show=true;
-            console.log("all all all", $scope.show);
+            //console.log("all all all", $scope.show);
       			return item;
         }else $scope.show=false;
-        console.log("$scope.show", $scope.show);
+        //console.log("$scope.show", $scope.show);
         //dt === all
         if (dt === "all"){
           if(prop === "all"){
@@ -354,4 +336,19 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
 
 });
 
+//modal for delete record. Hannah basically wrote this function for me
+app.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, record, DataFactory) {
+  $scope.ok = function () {
+    DataFactory.deleteNumber(record)
+      .then((data)=>{
+        //$scope.getNumberList();
+        //$timeout();
+      });
+    $uibModalInstance.close();
+  };
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
 

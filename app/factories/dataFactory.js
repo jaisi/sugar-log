@@ -14,7 +14,7 @@ app.factory('DataFactory', function($q, $http, FBCreds){
 	const editNumber = (id, editedObj) => {
 		return $q((resolve, reject) => {
 			let editedObject = JSON.stringify(editedObj);
-			console.log("editedObject",editedObject);
+			//console.log("editedObject",editedObject);
 			$http.patch(`${FBCreds.databaseURL}/numbers/${id}.json`, editedObject)
 			.then(resolve)
 			.catch(reject);
@@ -29,7 +29,7 @@ app.factory('DataFactory', function($q, $http, FBCreds){
 			$http.get(`${FBCreds.databaseURL}/numbers/${id}.json`)
 			.then((itemObj) => {
 				resolve(itemObj.data);
-				console.log("itemObj.data", itemObj.data);
+				//console.log("itemObj.data", itemObj.data);
 			})
 			.catch((error) => {
 				reject(error);
@@ -39,12 +39,11 @@ app.factory('DataFactory', function($q, $http, FBCreds){
 	};
 
 	const getQuote = () => {
-		//console.log("i am in getNumber and my id is", id);
 		return $q((resolve, reject) => {
 			$http.get(`http://quotes.rest/qod.json`)
 			.then((quotesObj) => {
 				resolve(quotesObj.data);
-				console.log("quotesObj.data", quotesObj.data);
+				//console.log("quotesObj.data", quotesObj.data);
 			})
 			.catch((error) => {
 				reject(error);
@@ -55,12 +54,12 @@ app.factory('DataFactory', function($q, $http, FBCreds){
 
 	const getNumbers = () => {
 		let bgs = [];
-		console.log("within getNumbers function");
+		//console.log("within getNumbers function");
 		return $q((resolve,reject) => {
-			console.log("within the promise");
+			//console.log("within the promise");
 			$http.get(`${FBCreds.databaseURL}/numbers.json`)
 			.then((itemObj) => {
-				console.log("data", itemObj.data);
+				//console.log("data", itemObj.data);
 				let itemCollection = itemObj.data;
 				Object.keys(itemCollection).forEach((key) => {
 					itemCollection[key].id = key;

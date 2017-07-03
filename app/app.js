@@ -1,7 +1,10 @@
 "use strict";
+//require('angular-ui-bootstrap');
+//require('angular-bootstrap-confirm');
 
 const app = angular.module('SugarLogApp', ["ngRoute", "ui.bootstrap", "chart.js","ng-fusioncharts", "ngPrint", "htmlToPdfSave"])
 				   .directive('numbersOnly', numbersOnly);
+
 
 let isAuth = (AuthFactory) => new Promise((resolve,reject) => {
 	AuthFactory.isAuthenticated()

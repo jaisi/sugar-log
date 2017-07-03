@@ -1,17 +1,21 @@
 
 <div class="container"><h1>Blood Glucose Results<a ng-href="#!/all"><!--<span ng-print print-element-id="print"><i class="fa fa-print"></i></span></a></span>-->
-<a ng-href="#!/all"><span style="float:right" class="glyphicon glyphicon-download-alt" pdf-save-button="idOne" pdf-name="Myrecords.pdf"></span></a>
+<a ng-href="#!/all" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()"><span style="float:right" title="Download pdf" class="glyphicon glyphicon-download-alt" pdf-save-button="idOne" pdf-name="Myrecords.pdf"></span></a>
     </h1>
+     
 
   <div id="print" pdf-save-content="idOne">
-    <p><button class="btn btn-info" ng-click="showA1c = !showA1c">Click to show A1c</button> <h4 ng-show="showA1c" class="text-center">Your A1c is : {{A1c}}</h4></p>   
+    <p><!--<button class="btn btn-info" ng-click="showA1c = !showA1c">Click to show A1c</button>--> <h4 ng-show="showA1c" class="text-center">Your A1c is : {{A1c}}</h4></p>
       <div class="form-group connected-group">
-          <label class="control-label">
-            Filter records by # of days, time of day and BG:<span class="symbol required"></span>
-          </label>
+          <h5>
+            Filter records by # of days, time of day and BG:<span class="symbol required"><!--<a href="#">
+          <span style="float:right" ng-click class="glyphicon glyphicon-refresh"></span>
+        </a>-->
+          </h5>
+
           <div class="row">
             <div class="col-xs-4 col-sm-4 col-md-4">
-              <select ng-change="getAverages(aj)" class="form-control" ng-model="select1" ng-init="select1='all'">
+              <select ng-change="showA1c=false" class="form-control" ng-model="select1" ng-init="select1='all'">
                 <option value="all" selected="selected">All</option>
                 <option value="30">Last 30 days</option>
                 <option value="60">Last 60 days</option>
@@ -19,7 +23,7 @@
               </select>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
-              <select ng-change="getAverages(aj)" class="form-control" ng-model="select2" ng-init="select2='all'">
+              <select ng-change="showA1c=false" class="form-control" ng-model="select2" ng-init="select2='all'">
                 <option selected="selected" value="all">All</option>
                 <option value="breakfast">Breakfast</option>
                 <option value="lunch">Lunch</option>
@@ -28,7 +32,7 @@
               </select>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
-              <select ng-change="getAverages(aj)" class="form-control" ng-model="select3" ng-init="select3='all'">
+              <select ng-change="showA1c=false" class="form-control" ng-model="select3" ng-init="select3='all'">
                 <option selected="selected" value="all">All</option>
                 <option value="180">>180</option>
                 <option value="300">>300</option>
@@ -38,10 +42,10 @@
           </div>
       </div>
       
-      <div ng-controller="DatepickerPopupDemoCtrl">
+  <div ng-controller="DatepickerPopupDemoCtrl">
    
 
-    <label class="control-label">OR Select custom date range:</label>
+    <h5>OR Select custom date range:</h5>
     <div class="row">
       <div class="col-sm-6">
         <p class="input-group">
@@ -63,7 +67,21 @@
     </div>
 
 
-
+     <script type="text/ng-template" id="modal.html">
+        <div class="mymodal">
+        <div class="modal-header">
+          <h3 class="modal-title" align="center" ng-bind-template="Delete Confirmation"></h3>
+        </div>
+        <div class="modal-body">
+          <span ng-bind-template="Are you sure you want to delete this record?"></span>
+        </div>
+        <div class="modal-footer">
+          <span class="glyphicon glyphicon-trash" title="Delete" ng-click="ok()"></span>
+          <span class="glyphicon glyphicon-remove" title="Cancel" ng-click="cancel()"></span>
+        </div>
+        </div>
+      </script>
+     <br>
      <table class="table table-bordered table-striped">
         <thead>
           <tr>
@@ -94,7 +112,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="bg in (aj = (numbers | filter:myFilter(dt1, dt2, select1, select2, select3) | orderBy:sortType:!sortReverse))">
+          <tr ng-repeat="bg in ($parent.aj = (numbers | filter:myFilter(dt1, dt2, select1, select2, select3) | orderBy:sortType:!sortReverse))">
             <td><a ng-href="#!/{{bg.id}}/edit">{{ bg.mydate | date:shortDate }}</a></td>
             <td>{{ bg.breakfast }}</td>
             <td>{{ bg.lunch }}</td>
@@ -102,24 +120,28 @@
             <td>{{ bg.bedtime }}</td>
             <td>{{ bg.other }}
                 <a ng-href="#!/all">
-                  <span style="float:right" class="glyphicon glyphicon-trash" ng-click="removeRecord(bg.id)" confirm="Are you sure you want to delete this record?"></span>
+                  <span style="float:right" title="Delete record" class="glyphicon glyphicon-trash" ng-click="open($event,bg.id)"></span>
                 </a>
                 <a ng-href="#!/{{bg.id}}/edit">
-                  <span style="float:right" class="glyphicon glyphicon-edit"></span>
+                  <span style="float:right" title="Edit record" class="glyphicon glyphicon-edit"></span>
                 </a>
 
             </td>
           </tr>
           <!--<tr ng-show="show">-->
           <tr>
-            <td><button class="btn btn-info" ng-click="getAverages(aj)">Update Avg</button></td>
-            <td>{{breakfastAverage}}</td>
-            <td>{{lunchAverage}}</td>
-            <td>{{dinnerAverage}}</td>
-            <td>{{bedtimeAverage}}</td>
-            <td>{{otherAverage}}</td>
+            <td ng-show="showA1c">Average</td>
+            <td ng-show="showA1c">{{breakfastAverage}}</td>
+            <td ng-show="showA1c">{{lunchAverage}}</td>
+            <td ng-show="showA1c">{{dinnerAverage}}</td>
+            <td ng-show="showA1c">{{bedtimeAverage}}</td>
+            <td ng-show="showA1c">{{otherAverage}}</td>
           </tr>
+
         </tbody>
       </table>
+      <br>
+      <div class="mycenter"><p><button class="btn btn-info" ng-click="getAverages($parent.aj)">Calculate Avg/A1c</button><!--<h4 ng-show="showA1c" class="text-center">Your A1c is : {{A1c}}</h4>--></p></div>
     </div>
 </div>
+

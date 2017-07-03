@@ -3,7 +3,7 @@
 //login, logout, register, loginGoogle, clever conditional, authfactory
 app.controller("AuthCtrl", function ($scope, $window, AuthFactory, $location) {
 
-  console.log("AuthCtrl is loaded");
+  //console.log("AuthCtrl is loaded");
   $scope.account = {
     email: "",
     password: ""
@@ -14,11 +14,11 @@ app.controller("AuthCtrl", function ($scope, $window, AuthFactory, $location) {
     console.log("logout clicked");
     AuthFactory.logoutUser()
       .then(function (data) {
-        console.log("logged out?", data);
+        //console.log("logged out?", data);
         //location is a service within angular
         $window.location.url = ("#!/login");
       }, function (error) {
-        console.log("error occured on logout");
+        //console.log("error occured on logout");
       });
   };
 
@@ -34,10 +34,10 @@ app.controller("AuthCtrl", function ($scope, $window, AuthFactory, $location) {
       password: $scope.account.password
     })
       .then((userData) => {
-        console.log("UserCtrl newUser:", userData);
+        //console.log("UserCtrl newUser:", userData);
         $scope.login();
       }, (error) => {
-        console.log("Error creating user:", error);
+        //console.log("Error creating user:", error);
       });
   };
 
@@ -59,13 +59,13 @@ app.controller("AuthCtrl", function ($scope, $window, AuthFactory, $location) {
     AuthFactory.authWithProvider()
       .then(function (result) {
         var user = result.user.uid;
-        console.log("logged in user:", user);
+        //console.log("logged in user:", user);
         //Once logged in, go to another view
         $location.path("/");
         $scope.$apply();
       }).catch(function (error) {
         // Handle the Errors.
-        console.log("error with google login", error);
+        //console.log("error with google login", error);
         var errorCode = error.code;
         var errorMessage = error.message;
         // The email of the user's account used.
