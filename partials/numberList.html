@@ -20,6 +20,7 @@
                 <option value="30">Last 30 days</option>
                 <option value="60">Last 60 days</option>
                 <option value="90">Last 90 days</option>
+                <option value="custom">Custom</option>
               </select>
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4">
@@ -45,22 +46,22 @@
   <div ng-controller="DatepickerPopupDemoCtrl">
    
 
-    <h5>OR Select custom date range:</h5>
+    <h5 ng-show="select1==='custom'">Custom date range:</h5>
     <div class="row">
       <div class="col-sm-6">
         <p class="input-group">
-          <input type="text" readonly class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt1" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+          <input type="text" readonly ng-show="select1==='custom'" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt1" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" ng-show="select1==='custom'" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
       </div>
 
       <div class="col-sm-6">
         <p class="input-group">
-          <input type="text" readonly class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt2" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <input type="text" readonly ng-show="select1==='custom'" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt2" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" ng-show="select1==='custom'" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
       </div>
@@ -113,7 +114,7 @@
         </thead>
         <tbody>
           <!--<tr ng-repeat="bg in (aj = (numbers | filter:filter1(select1) | filter:filter2(select2)|orderBy:sortType:!sortReverse))">-->
-          <tr ng-repeat="bg in ($parent.aj = (numbers | filter:myFilter(dt1, dt2, select1, select2, select3) | orderBy:sortType:!sortReverse))">
+          <tr ng-repeat="bg in (aj = (numbers | filter:myFilter(dt1, dt2, select1, select2, select3) | orderBy:sortType:!sortReverse))">
             <td><a ng-href="#!/{{bg.id}}/edit">{{ bg.mydate | date:shortDate }}</a></td>
             <td>{{ bg.breakfast }}</td>
             <td>{{ bg.lunch }}</td>
@@ -142,7 +143,7 @@
         </tbody>
       </table>
       <br>
-      <div class="mycenter"><p><button class="btn btn-info" ng-click="getAverages($parent.aj)">Calculate Avg/A1c</button><!--<h4 ng-show="showA1c" class="text-center">Your A1c is : {{A1c}}</h4>--></p></div>
+      <div class="mycenter"><p><button class="btn btn-info" ng-click="getAverages(aj)">Calculate Avg/A1c</button><!--<h4 ng-show="showA1c" class="text-center">Your A1c is : {{A1c}}</h4>--></p></div>
     </div>
 </div>
 

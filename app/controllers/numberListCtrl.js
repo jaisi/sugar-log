@@ -82,7 +82,7 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
     var getAvg = function(num){
         var sum = num.reduce(function(acc, val) {
             return acc + val;
-      }, 0);
+            }, 0);
         var avg = sum/num.length;
         avg = avg.toFixed(0);
         //console.log("num sum",num,sum,avg);
@@ -172,12 +172,16 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
         
 
         //custom date range starts
-        if (dt1 !== undefined && dt2 !== undefined){
+
+
+        if (dt !== "custom" && ($scope.mydt1 !== undefined || $scope.mydt2 !== undefined)){
           $scope.show=false;
-          dt1 = new Date(dt1);
-          dt2 = new Date(dt2);
-          //console.log("dt1 and dt2 are set", dt1, dt2);
-          return (item.mydate >= dt1 && item.mydate <= dt2);
+          //dt1 = ""; dt2 = "";
+          $scope.mydt1 = "";$scope.mydt2 = "";
+          //dt1 = new Date(dt1);
+          //dt2 = new Date(dt2);
+          console.log("dt1 and dt2 are set", $scope.mydt1, $scope.mydt2);
+          //return (item.mydate >= dt1 && item.mydate <= dt2);
         }
         //custom date range ends
 
@@ -337,7 +341,50 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
                 return ((parseInt(item.bedtime) < val) && (item.mydate > ninety));
               else
                 return ((parseInt(item.bedtime) > val) && (item.mydate > ninety));
+          } 
+
+        }else if(dt === "custom"){
+         dt1 = new Date(dt1);
+         dt2 = new Date(dt2);
+         if(prop === "all")
+         {
+            if(val === "all")
+              return(item.mydate >= dt1 && item.mydate <= dt2);
+            else if(val === "70")
+              return((parseInt(item.breakfast) < val) && (parseInt(item.lunch) < val) && (parseInt(item.dinner) < val) && (parseInt(item.bedtime) < val) && (item.mydate >= dt1 && item.mydate <= dt2));
+            else return((parseInt(item.breakfast) > val) && (parseInt(item.lunch) > val) && (parseInt(item.dinner) > val) && (parseInt(item.bedtime) > val) && (item.mydate >= dt1 && item.mydate <= dt2));
+         }else if (prop == "breakfast"){
+             //console.log("dt prop val in 30", dt, prop, val);
+              if (val === "all")
+                 return (item.mydate >= dt1 && item.mydate <= dt2);
+              else if(val === "70")
+                return ((parseInt(item.breakfast) < val) && (item.mydate >= dt1 && item.mydate <= dt2));
+              else
+                return ((parseInt(item.breakfast) > val) && (item.mydate >= dt1 && item.mydate <= dt2));
+          }else if (prop == "lunch"){
+              if (val === "all")
+                 return (item.mydate >= dt1 && item.mydate <= dt2);
+              else if(val === "70")
+                return ((parseInt(item.lunch) < val) && (item.mydate >= dt1 && item.mydate <= dt2));
+              else
+                return ((parseInt(item.lunch) > val) && (item.mydate >= dt1 && item.mydate <= dt2));
+          }else if (prop == "dinner"){
+              if (val === "all")
+                 return (item.mydate >= dt1 && item.mydate <= dt2);
+              else if(val === "70")
+                return ((parseInt(item.dinner) < val) && (item.mydate >= dt1 && item.mydate <= dt2));
+              else
+                return ((parseInt(item.dinner) > val) && (item.mydate >= dt1 && item.mydate <= dt2));
+          }else if (prop == "bedtime"){
+              if (val === "all")
+                 return (item.mydate >= dt1 && item.mydate <= dt2);
+              else if(val === "70")
+                return ((parseInt(item.bedtime) < val) && (item.mydate >= dt1 && item.mydate <= dt2));
+              else
+                return ((parseInt(item.bedtime) > val) && (item.mydate >= dt1 && item.mydate <= dt2));
           }   
+          
+
         }
     	};
   	};

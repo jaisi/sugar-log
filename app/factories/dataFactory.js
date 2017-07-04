@@ -78,7 +78,10 @@ app.factory('DataFactory', function($q, $http, FBCreds){
   			$http.delete(`${FBCreds.databaseURL}/numbers/${id}.json`)
   		.then((data) =>{
   			resolve(data);//always have a resolve
-  		});
+  		})
+  		.catch( (error) => {
+        		reject(error);
+      	});
   	});
   	};
 
