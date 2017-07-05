@@ -31,13 +31,21 @@ app.controller('NumberCtrl', function($scope, DataFactory, AuthFactory, $locatio
 	    .then( (numbers) => {
 	    	for (let x in numbers){
 	    			let mydt1 = new Date(numbers[x].mydate),
-	    			    mydt2 = new Date(dt);
+	    			    mydt2 = new Date(dt),
+	    			    today = new Date();
 	    			if(mydt1.getTime() === mydt2.getTime()){
 	    				console.log("Date already entered", mydt1,mydt2);
 	    				$scope.alerts = [
     						{ type: 'warning', msg: 'Date already entered! Pick another date.' }
   						];
 	    				$scope.bg.mydate = null;
+	    			}
+	    			if(mydt2.getTime() > today.getTime()){
+	    				console.log("date and today", mydt2,today);
+	    				$scope.alerts = [
+    						{ type: 'warning', msg: 'Please enter a date less than or equal to today.' }
+  						];
+  						$scope.bg.mydate = null;
 	    			}
 	    		
 	    	}

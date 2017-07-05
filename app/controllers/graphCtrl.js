@@ -28,7 +28,9 @@ app.controller("GraphCtrl", function ($scope, DataFactory) {
                         $scope.bedtime = [];
                         $scope.other = [];
                         $scope.mydate = [];
-                        
+                        numbers.sort(function(a, b){
+                            return new Date(a.mydate) - new Date(b.mydate);
+                        });
                         for(let x in numbers){
                           $scope.breakfast.push(numbers[x].breakfast);
                           $scope.lunch.push(numbers[x].lunch);
@@ -41,54 +43,31 @@ app.controller("GraphCtrl", function ($scope, DataFactory) {
                           $scope.labels.push(numbers[x].mydate);  
                         }
                         console.log("$scope.labels",$scope.labels);
-                        /*$scope.labels.sort(function(a,b){
-                          return new Date(a) - new Date(b);
-                        });*/
                        if(meal === "breakfast"){
                           $scope.series = ['Breakfast'];
                           $scope.data.push($scope.breakfast);
-                         /* $scope.labels.sort(function(a,b){
-                            return new Date(a) - new Date(b);
-                          });*/
                        }
                         if(meal === "lunch"){
                           $scope.series = ['Lunch'];
                           $scope.data.push($scope.lunch);
-                          /*$scope.labels.sort(function(a,b){
-                            return new Date(a) - new Date(b);
-                          });*/
                         }
                         if(meal === "dinner"){
                           $scope.series = ['Dinner'];
                           $scope.data.push($scope.dinner);
-                          /*$scope.labels.sort(function(a,b){
-                            return new Date(a) - new Date(b);
-                          });*/
                         }
                         if(meal === "bedtime"){
                           $scope.series = ['Bedtime'];
                           $scope.data.push($scope.bedtime);
-                          /*$scope.labels.sort(function(a,b){
-                            return new Date(a) - new Date(b);
-                          });*/
                         }
                         if(meal === "other"){
                           $scope.series = ['Other'];
                           $scope.data.push($scope.other);
-                          /*$scope.labels.sort(function(a,b){
-                            return new Date(a) - new Date(b);
-                          });*/
                         }
                         if (meal === "all"){
                           $scope.series = ['Breakfast', 'Lunch', 'Dinner', 'Bedtime', 'Other'];
                           $scope.data.push($scope.breakfast,$scope.lunch,$scope.dinner,$scope.bedtime,$scope.other);
-                          /*$scope.labels.sort(function(a,b){
-                            return new Date(a) - new Date(b);
-                          });*/
                         }
                         console.log("$scope.data",$scope.data);
-                       
-                        
                         $scope.onClick = function (points, evt) {
                           console.log(points, evt);
                         };
