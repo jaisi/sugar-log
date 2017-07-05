@@ -3,33 +3,15 @@
 app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $location, $timeout, $uibModal,$document){
   let user = AuthFactory.getUser();
   $scope.aj = [];
-  /*$scope.hoverIn = function(){
-        this.hoverEdit = true;
-    };
-
-    $scope.hoverOut = function(){
-        this.hoverEdit = false;
-    };*/
-
-	$scope.getNumberList = function (user) {
+  
+	$scope.getNumberList = function () {
 	    // get the list
 	    DataFactory.getNumbers()
 	    .then( (numbers) => {
 	    	$scope.numbers = numbers;
-       // console.log("aj", $scope.aj);
+        //console.log("am i here");
 	    	$scope.averages = $scope.getAverages(numbers);
-	    	//console.log("numbers", $scope.numbers);
 	    });
-  	};
-
-    
-  	$scope.removeRecord = function (recordId){
-  		DataFactory.deleteNumber(recordId)
-  		.then((data)=>{
-  			$scope.getNumberList();
-        $timeout();
-  		});
-
   	};
 
     $scope.open = function (event,recordId) {
@@ -48,31 +30,15 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
             }
           }
         });
+
         modalInstance.result.then(function (selectedItem) {
+          //console.log("i am in modalInstance");
           $scope.getNumberList();
           $timeout();
-          //$ctrl.selected = selectedItem;
         }, function () {
           console.log('modal-component dismissed at: ' + new Date());
         });
-  };
-  
-
-    $scope.deleteModal = function (recordId){
-        $scope.recordId = recordId;
-        console.log("i am within deleteModal", recordId);
-         $uibModal.open({
-            templateUrl: 'modal.html',
-            controller:'NumberListCtrl',
-            resolve: {
-              record: function () {
-                return recordId;
-              }
-            }
-          });
     };
-    
-
   
 
     $scope.sortType     = 'mydate'; // set the default sort type
@@ -134,7 +100,7 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
       $scope.A1c = !isNaN($scope.A1c)?$scope.A1c:null;       
     };
    
-
+    /*
     $scope.filter1 = function(){
       return function(item){
         console.log("i am here");
@@ -145,7 +111,7 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
       return function(item){
         console.log("i am now here");
       };
-    };
+    };*/
     
 
 
@@ -155,7 +121,7 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
   		//console.log("within greaterThan function", $scope.aj);
   		//console.log("dt and prop and val are", dt1, dt2, dt, prop, val);
   		return function(item){
-        console.log("aj within myFilter function", $scope.aj);
+       // console.log("aj within myFilter function", $scope.aj);
         $scope.filtered = [];
         $scope.mydt1 = dt1;
         $scope.mydt2 = dt2;
@@ -172,8 +138,6 @@ app.controller('NumberListCtrl', function($scope, DataFactory, AuthFactory, $loc
         
 
         //custom date range starts
-
-
         if (dt !== "custom" && ($scope.mydt1 !== undefined || $scope.mydt2 !== undefined)){
           $scope.show=false;
           //dt1 = ""; dt2 = "";
@@ -401,10 +365,9 @@ app.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, record,
   $scope.ok = function () {
     DataFactory.deleteNumber(record)
       .then((data)=>{
-        //$scope.getNumberList();
-        //$timeout();
+         $uibModalInstance.close();
       });
-    $uibModalInstance.close();
+   
   };
 
   $scope.cancel = function () {
