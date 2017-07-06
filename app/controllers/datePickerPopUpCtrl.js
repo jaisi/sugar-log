@@ -7,6 +7,8 @@ app.controller('DatepickerPopupDemoCtrl', function ($scope) {
   };
   $scope.today();
 
+  //$scope.today = new Date();
+
   $scope.clear = function() {
     $scope.dt = null;
   };
@@ -20,7 +22,7 @@ app.controller('DatepickerPopupDemoCtrl', function ($scope) {
   $scope.dateOptions = {
     dateDisabled: disabled,
     formatYear: 'yy',
-    maxDate: new Date(2020, 5, 22),
+    maxDate: new Date(),
     minDate: new Date(),
     startingDay: 1
   };
