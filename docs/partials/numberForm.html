@@ -1,0 +1,40 @@
+<div class="container"><h1>Enter your Blood Glucose</h1>
+<form class="form--demo col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+  <div class="form-group" ng-controller="DatepickerPopupDemoCtrl">
+      <h5>Date<a ng-href="#!/all">
+              <span title="Cancel" class="glyphicon glyphicon-remove align-right" style="float:right"></span>
+            </a></h5>
+        <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'danger')" close="closeAlert($index)">{{alert.msg}}</div>
+      <p class="input-group">
+         
+        <input type="text"  readonly class="form-control" ng-change="checkDate(bg.mydate,$index)" ng-model="bg.mydate" uib-datepicker-popup="{{format}}" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"></input>
+        <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+  </div>
+  <div class="form-group">
+    <h5>Breakfast</h5>
+    <input type="text" class="form-control" numbers-only ng-model="bg.breakfast"></input>
+  </div>
+  <div class="form-group">
+    <h5>Lunch</h5>
+    <input type="text" class="form-control" numbers-only ng-model="bg.lunch"></input>
+  </div>
+  <div class="form-group">
+    <h5>Dinner</h5>
+    <input type="text" class="form-control" numbers-only ng-model="bg.dinner"></input>
+  </div>
+  <div class="form-group">
+    <h5>Bedtime</h5>
+    <input type="text" class="form-control" numbers-only ng-model="bg.bedtime"></input>
+  </div>
+  <div class="form-group">
+    <h5>Other</h5>
+    <input type="text" class="form-control" numbers-only ng-model="bg.other"></input>
+  </div>
+  <div class="text-center">
+    <button type="button" ng-click="submitNumber()" class="btn btn-default btn-primary">Submit</button>
+  </div>
+</form>
+</div>

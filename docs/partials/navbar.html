@@ -1,0 +1,42 @@
+<nav ng-controller="NavCtrl" class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#!/"><img src="/images/bigshield.png"></a><h3 class="navbar-text">SUGAR SHIELD</h3>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ng-show="isLoggedIn" ng-href="#!/">ENTER A #</a></li>
+        <li><a ng-show="isLoggedIn" ng-href="#!/all">RECORDS</a></li>
+        <li><a ng-show="isLoggedIn" ng-href="#!/graphs">GRAPHS</a></li>
+        <li><a ng-show="isLoggedIn" ng-href="#!/logout">LOGOUT</a></li>
+        <li><a ng-show="isLoggedIn" ng-href="" ng-click="toggle()">COLOR</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <!--<nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#!/">My Sugar Log</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a ng-show="isLoggedIn" ng-href="#!/">Enter a #</a></li>
+          <li><a ng-show="isLoggedIn" ng-href="#!/all">Show Records</a></li>
+          <li><a ng-show="isLoggedIn" ng-href="#!/graphs">Show Graphs</a></li>
+          <li><a ng-show="isLoggedIn" ng-href="#!/logout">Logout</a></li>
+          <li class="quote" ng-show="!isLoggedIn">{{quote}}</li>
+          <li ng-show="isLoggedIn">Hello {{name}}! Today is {{ today | date }}.</li>
+        </ul>
+      </div>
+    </nav>-->
+
+     
+
+    

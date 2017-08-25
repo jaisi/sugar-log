@@ -1,0 +1,48 @@
+<div class="container"><h1>Blood Glucose Charts<a ng-href="#!/graphs"><!--<span ng-print print-element-id="print"><i class="fa fa-print"></i></span></a></span>-->
+<a ng-href="#!/graphs"><span style="float:right" title="Download pdf" class="glyphicon glyphicon-download-alt" pdf-save-button="idTwo" pdf-name="Mygraphs.pdf"></span></a>
+    </h1>
+
+  <div id="print" pdf-save-content="idTwo">   
+      <div class="form-group connected-group">
+          <h5>
+            Choose graphs to view results:<span class="symbol required"></span>
+          </h5>
+          <div class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+              <select class="form-control" ng-model="select1" ng-change="dothis(select1,select2,select3)" ng-init="select1='all'">
+                <option value="all" selected="selected">All</option>
+                <option value="30">Last 30 days</option>
+                <option value="60">Last 60 days</option>
+                <option value="90">Last 90 days</option>
+              </select>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+              <select class="form-control" ng-model="select2" ng-change="dothis(select1,select2,select3)" ng-init="select2='all'">
+                <option selected="selected" value="all">All</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="bedtime">Bedtime</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4">
+              <select class="form-control" ng-model="select3" ng-init="select3='bar'" ng-change="dothis(select1,select2,select3)">
+                <option selected="selected" value="bar">Average results</option>
+                <option value="line">All results</option>  
+              </select>
+            </div>
+          </div>
+      </div>
+      <!--<div ng-show="!showline">hello bar</div>-->
+      <canvas id="bar" ng-show="!showline" class="chart chart-bar"
+		  chart-data="data" chart-labels="labels" chart-series="series">
+	  </canvas>
+	  <canvas id="line" ng-show="showline" class="chart chart-line" chart-data="data"
+		chart-labels="labels" chart-series="series" chart-options="options"
+		chart-dataset-override="datasetOverride" chart-click="onClick">
+	  </canvas>
+
+  </div>
+	  
+ 
