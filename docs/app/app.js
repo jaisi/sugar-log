@@ -2,7 +2,7 @@
 //require('angular-ui-bootstrap');
 //require('angular-bootstrap-confirm');
 
-const app = angular.module('SugarLogApp', ["ngRoute", "ui.bootstrap", "chart.js","ng-fusioncharts", "ngPrint", "htmlToPdfSave"])
+const app = angular.module('SugarLogApp', ["ngRoute", "ui.bootstrap", "chart.js", "ngPrint", "htmlToPdfSave"])
 				   .directive('numbersOnly', numbersOnly);
 
 
